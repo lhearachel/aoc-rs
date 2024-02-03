@@ -1,4 +1,5 @@
 mod aoc2022;
+mod io;
 
 use clap::Parser;
 

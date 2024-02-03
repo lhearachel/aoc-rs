@@ -27,11 +27,10 @@
 // in total?
 
 use std::cmp::Reverse;
-use std::fs::File;
-use std::io::{self, BufReader, BufRead};
+use crate::io;
 
 pub fn solve() -> () {
-    let data = read().unwrap();
+    let data = io::read("data/aoc2022/day_1.txt").unwrap();
 
     let mut cals: Vec<u32> = data.iter()
         .map(|x| -> u32 { x.iter().sum() })
@@ -43,29 +42,5 @@ pub fn solve() -> () {
 
     println!("Part 1: {}", part_1);
     println!("Part 2: {}", part_2);
-}
-
-fn read() -> io::Result<Vec<Vec<u32>>> {
-    let file = File::open("data/aoc2022/day_1.txt")?;
-    let reader = BufReader::new(file);
-    let mut data = Vec::new();
-    let mut memb: Vec<u32> = Vec::new();
-
-    for line in reader.lines() {
-        let l = match line {
-            Ok(s) => s,
-            Err(_) => continue,
-        };
-
-        if l.trim().is_empty() {
-            data.push(memb);
-            memb = Vec::new();
-            continue;
-        }
-
-        memb.push(l.parse::<u32>().unwrap());
-    }
-
-    Ok(data)
 }
 
