@@ -52,3 +52,13 @@ pub fn read_str_pairs(fname: &str) -> io::Result<Vec<(String, String)>> {
     Ok(data)
 }
 
+pub fn read_lines(fname: &str) -> io::Result<Vec<String>> {
+    Ok(
+        new_reader(fname)?
+            .lines()
+            .map(|l| l.unwrap())
+            .map(|l| l.trim().to_string())
+            .collect()
+    )
+}
+
