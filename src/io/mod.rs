@@ -62,3 +62,41 @@ pub fn read_lines(fname: &str) -> io::Result<Vec<String>> {
     )
 }
 
+pub struct Assignment {
+    pub lower: u8,
+    pub upper: u8,
+}
+
+pub fn read_assignments(fname: &str) -> io::Result<Vec<(Assignment, Assignment)>> {
+    let reader = new_reader(fname)?;
+    let mut data: Vec<(Assignment, Assignment)> = Vec::new();
+
+    for line in reader.lines() {
+        let l = match line {
+            Ok(s) => s,
+            Err(_) => continue,
+        };
+
+        if l.trim().is_empty() {
+            continue;
+        }
+
+        let mut pair_splits = l.split(',');
+        let mut set1_splits = pair_splits.next().unwrap().split('-');
+        let mut set2_splits = pair_splits.next().unwrap().split('-');
+
+        data.push((
+            Assignment {
+                lower: set1_splits.next().unwrap().parse::<u8>().unwrap(),
+                upper: set1_splits.next().unwrap().parse::<u8>().unwrap(),
+            },
+            Assignment {
+                lower: set2_splits.next().unwrap().parse::<u8>().unwrap(),
+                upper: set2_splits.next().unwrap().parse::<u8>().unwrap(),
+            }
+        ))
+    }
+
+    Ok(data)
+}
+
