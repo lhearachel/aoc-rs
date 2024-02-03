@@ -30,7 +30,7 @@ use std::cmp::Reverse;
 use crate::io;
 
 pub fn solve() -> () {
-    let data = io::read("data/aoc2022/day_1.txt").unwrap();
+    let data = io::read_matrix("data/aoc2022/day_1.txt").unwrap();
 
     let mut cals: Vec<u32> = data.iter()
         .map(|x| -> u32 { x.iter().sum() })

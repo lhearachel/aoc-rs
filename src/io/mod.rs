@@ -1,9 +1,12 @@
 use std::fs::File;
 use std::io::{self, BufReader, BufRead};
 
-pub fn read(fname: &str) -> io::Result<Vec<Vec<u32>>> {
-    let file = File::open(fname)?;
-    let reader = BufReader::new(file);
+fn new_reader(fname: &str) -> io::Result<BufReader<File>> {
+    Ok(BufReader::new(File::open(fname)?))
+}
+
+pub fn read_matrix(fname: &str) -> io::Result<Vec<Vec<u32>>> {
+    let reader = new_reader(fname)?;
     let mut data = Vec::new();
     let mut memb: Vec<u32> = Vec::new();
 
