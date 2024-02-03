@@ -28,3 +28,27 @@ pub fn read_matrix(fname: &str) -> io::Result<Vec<Vec<u32>>> {
     Ok(data)
 }
 
+pub fn read_str_pairs(fname: &str) -> io::Result<Vec<(String, String)>> {
+    let reader = new_reader(fname)?;
+    let mut data: Vec<(String, String)> = Vec::new();
+
+    for line in reader.lines() {
+        let l = match line {
+            Ok(s) => s,
+            Err(_) => continue,
+        };
+
+        if l.trim().is_empty() {
+            continue;
+        }
+
+        let mut splits = l.split_whitespace();
+        data.push((
+            splits.next().unwrap().to_string(),
+            splits.next().unwrap().to_string()
+        ));
+    }
+
+    Ok(data)
+}
+

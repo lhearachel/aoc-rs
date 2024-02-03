@@ -14,9 +14,10 @@ fn main() {
     match args.year {
         2022 => match args.day {
             1 => aoc2022::day_1::solve(),
-            _ => (),
+            2 => aoc2022::day_2::solve(),
+            v => println!("Unsupported value day={v}"),
         },
-        _ => (),
+        v => println!("Unsupported value year={v}"),
     };
 }
 
